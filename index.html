@@ -7,16 +7,44 @@
   <meta name="description" content="Ting1127 的个人网站，基于 GitHub Pages，记录与分享。" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://www.ting1127.top/" />
+  <!-- Open Graph / Twitter 预览 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ting1127 的个人网站" />
+  <meta property="og:description" content="记录与分享，基于 GitHub Pages 的静态网站。" />
+  <meta property="og:url" content="https://www.ting1127.top/" />
+  <meta property="og:image" content="https://www.ting1127.top/assets/img/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ting1127 的个人网站" />
+  <meta name="twitter:description" content="记录与分享，基于 GitHub Pages 的静态网站。" />
+  <meta name="twitter:image" content="https://www.ting1127.top/assets/img/favicon.svg" />
+  <!-- PWA & 图标 -->
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" crossorigin="use-credentials" />
   <!-- 基础样式：从原内联样式提取到独立文件，便于维护与复用 -->
   <link rel="stylesheet" href="assets/css/style.css" />
   <!-- 预留脚本入口：后续按需添加交互逻辑 -->
   <script src="assets/js/main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ting1127",
+    "url": "https://www.ting1127.top/",
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
   <div class="wrapper">
     <header class="header">
       <h1>欢迎访问 Ting1127.top</h1>
       <p>我的个人网站 | 基于 GitHub Pages</p>
+      <nav class="nav" aria-label="主导航">
+        <a href="/" data-nav="home">首页</a>
+        <a href="/about.html" data-nav="about">关于</a>
+        <a href="/contact.html" data-nav="contact">联系</a>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换深浅色">🌓</button>
+      </nav>
     </header>
 
     <main class="content">

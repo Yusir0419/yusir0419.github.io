@@ -1,0 +1,11 @@
+<!-- 简洁的站点图标：字母 T 圆角背景 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0b57d0"/>
+      <stop offset="100%" stop-color="#7baaf7"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#g)"/>
+  <path d="M32 40h64v14H74v46H54V54H32z" fill="#ffffff"/>
+</svg>

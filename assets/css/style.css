@@ -7,9 +7,41 @@
   --bg: #f5f5f5;
   --card-bg: #ffffff;
   --text: #333333;
+  --link: #0b57d0;
+  --accent: #0b57d0;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   --radius: 10px;
   --maxw: 800px;
+}
+
+/* 深色主题（跟随系统，支持手动覆盖） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111315;
+    --card-bg: #181a1f;
+    --text: #e8e8e8;
+    --link: #8ab4f8;
+    --accent: #8ab4f8;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* 通过 data-theme 强制切换深浅色 */
+[data-theme="light"] {
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text: #333333;
+  --link: #0b57d0;
+  --accent: #0b57d0;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+[data-theme="dark"] {
+  --bg: #111315;
+  --card-bg: #181a1f;
+  --text: #e8e8e8;
+  --link: #8ab4f8;
+  --accent: #8ab4f8;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; }
@@ -45,6 +77,38 @@ h1 {
   margin: 0 0 10px;
 }
 
+/* 顶部导航 */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+}
+.nav a {
+  color: var(--link);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.nav a:hover { background: rgba(0,0,0,0.04); }
+[data-theme="dark"] .nav a:hover { background: rgba(255,255,255,0.06); }
+.nav a.active { outline: 2px solid var(--accent); }
+
+.theme-toggle {
+  margin-left: 8px;
+  padding: 6px 10px;
+  line-height: 1;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+[data-theme="dark"] .theme-toggle { border-color: rgba(255,255,255,0.2); }
+.theme-toggle:focus { outline: 2px solid var(--accent); }
+
 .content {
   background: var(--card-bg);
   padding: 30px 24px;
@@ -64,4 +128,19 @@ h1 {
   .wrapper { padding: 24px 14px; }
   .header { padding: 28px 18px; }
   .content { padding: 22px 16px; }
+}
+
+/* 可访问性：跳转到主内容的“跳转链接” */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+  z-index: 9999;
+  background: var(--card-bg);
+  border: 1px solid var(--accent);
+  padding: 6px 10px;
+  border-radius: 6px;
 }
