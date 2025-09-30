@@ -7,7 +7,7 @@
 - [x] 更新 README 说明
 - [x] UI 细化与主题风格（导航、配色、深色模式、图标）
 - [ ] SEO 进一步优化（Open Graph、Twitter Card、结构化数据）
-- [x] SEO 进一步优化（Open Graph、Twitter Card、结构化数据）
+- [x] SEO 进一步优化（Open Graph、Twitter Card、结构化数据：WebSite/WebPage/BreadcrumbList、robots/canonical/hreflang、Person sameAs）
 - [x] 性能优化（资源体积、缓存策略：基础 PWA/缓存）
 - [ ] 可访问性检查（对比度、语义标签、键盘可达）
 - [ ] 内容结构扩展（多页面/文章）

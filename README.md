@@ -34,3 +34,20 @@ python3 -m http.server 8080
 ## 备注
 - 如需多页面/博客能力，可按需引入 Jekyll/Hugo 等 SSG；当前保持零依赖静态结构。
 - 样式与脚本尽量轻量，便于移动端访问与 SEO。
+
+## SEO 与站点统计
+- Open Graph/Twitter 卡片已就绪，当前使用 `assets/img/favicon.svg` 作为占位图；建议后续提供 1200x630 PNG 的 `og-image` 并替换。
+- 结构化数据：主页包含 `Person` 与 `WebSite`，子页包含 `WebPage` 与 `BreadcrumbList`。
+- 可选统计：通过在页面 `<head>` 中添加以下 meta 即可启用（二选一）：
+
+Plausible（推荐，隐私友好）：
+```html
+<meta name="analytics:provider" content="plausible" />
+<meta name="analytics:domain" content="www.ting1127.top" />
+```
+
+Google Analytics 4：
+```html
+<meta name="analytics:provider" content="ga4" />
+<meta name="analytics:ga4" content="G-XXXXXXXXXX" />
+```

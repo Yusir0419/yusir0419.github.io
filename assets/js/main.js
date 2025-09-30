@@ -45,4 +45,30 @@
       });
     });
   }
+
+  // Analytics：按需加载（通过 meta 配置）
+  try {
+    var provider = (document.querySelector('meta[name="analytics:provider"]')||{}).content || '';
+    if (provider === 'plausible') {
+      var domain = (document.querySelector('meta[name="analytics:domain"]')||{}).content || '';
+      if (domain) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.setAttribute('data-domain', domain);
+        s.src = 'https://plausible.io/js/script.js';
+        document.head.appendChild(s);
+      }
+    } else if (provider === 'ga4') {
+      var ga4id = (document.querySelector('meta[name="analytics:ga4"]')||{}).content || '';
+      if (ga4id) {
+        var gtag = document.createElement('script');
+        gtag.async = true;
+        gtag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ga4id);
+        document.head.appendChild(gtag);
+        var inline = document.createElement('script');
+        inline.text = "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config','" + ga4id + "');";
+        document.head.appendChild(inline);
+      }
+    }
+  } catch (e) {}
 })();
