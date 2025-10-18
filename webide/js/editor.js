@@ -59,8 +59,8 @@ class EditorManager {
     initAceEditor() {
         this.editor = ace.edit('ace-editor');
 
-        // 设置主题
-        this.editor.setTheme('ace/theme/monokai');
+        // 设置主题（浅色）
+        this.editor.setTheme('ace/theme/chrome');
 
         // 设置基础选项
         this.editor.setOptions({
