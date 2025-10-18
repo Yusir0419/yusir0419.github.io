@@ -118,18 +118,23 @@ class EditorManager {
             this.saveFile();
         });
 
-        // 更多按钮（暂时显示菜单）
+        // 更多按钮（显示更多菜单）
         document.getElementById('btn-more').addEventListener('click', (e) => {
-            Bridge.System.showToast('功能开发中');
+            e.stopPropagation();
+            this.toggleMoreMenu();
         });
 
         // 右键菜单事件
         this.bindContextMenuEvents();
 
-        // 点击其他地方关闭右键菜单
+        // 更多菜单事件
+        this.bindMoreMenuEvents();
+
+        // 点击其他地方关闭右键菜单和更多菜单
         document.addEventListener('click', () => {
             const contextMenu = document.getElementById('context-menu');
             contextMenu.classList.add('hidden');
+            this.closeMoreMenu();
         });
     }
 
@@ -167,6 +172,51 @@ class EditorManager {
 
         sidebar.classList.add('collapsed');
         backdrop.classList.remove('visible');
+    }
+
+    /**
+     * 切换更多菜单
+     */
+    toggleMoreMenu() {
+        const moreMenu = document.getElementById('more-menu');
+        moreMenu.classList.toggle('hidden');
+    }
+
+    /**
+     * 关闭更多菜单
+     */
+    closeMoreMenu() {
+        const moreMenu = document.getElementById('more-menu');
+        moreMenu.classList.add('hidden');
+    }
+
+    /**
+     * 绑定更多菜单事件
+     */
+    bindMoreMenuEvents() {
+        const moreMenu = document.getElementById('more-menu');
+        const menuItems = moreMenu.querySelectorAll('.menu-item');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                const action = item.dataset.action;
+                this.closeMoreMenu();
+
+                switch (action) {
+                    case 'plugin-store':
+                        window.location.href = '../store/index.html';
+                        break;
+                    case 'settings':
+                        Bridge.System.showToast('设置功能开发中');
+                        break;
+                    case 'about':
+                        Bridge.System.showToast('WebIDE v1.0.0');
+                        break;
+                }
+            });
+        });
     }
 
     /**
