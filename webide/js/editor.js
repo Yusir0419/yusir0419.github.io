@@ -92,16 +92,10 @@ class EditorManager {
      * 绑定事件
      */
     bindEvents() {
-        // 返回按钮
-        document.getElementById('btn-back').addEventListener('click', async () => {
-            if (this.isDirty) {
-                const confirmed = await Dialog.confirm('确定要返回吗？', '未保存的修改将丢失');
-                if (confirmed) {
-                    window.location.href = 'index.html';
-                }
-            } else {
-                window.location.href = 'index.html';
-            }
+        // 菜单按钮（切换文件树）
+        document.getElementById('btn-toggle-menu').addEventListener('click', () => {
+            const sidebar = document.getElementById('file-tree-sidebar');
+            sidebar.classList.toggle('collapsed');
         });
 
         // 保存按钮
