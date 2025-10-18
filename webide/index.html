@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e1e1e">
+    <title>WebIDE - 项目</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- 主容器 -->
+    <div id="app" class="project-page">
+        <!-- 下拉刷新指示器 -->
+        <div id="pull-refresh" class="pull-refresh">
+            <div class="pull-refresh-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                    <path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/>
+                </svg>
+            </div>
+            <div class="pull-refresh-text">下拉刷新</div>
+        </div>
+
+        <!-- 项目列表容器 -->
+        <div class="project-list-container" id="project-list-container">
+            <!-- 项目网格 -->
+            <div id="project-list" class="project-list">
+                <!-- 项目卡片由 JS 动态生成 -->
+            </div>
+
+            <!-- 空状态提示 -->
+            <div id="empty-state" class="empty-state">
+                <div class="empty-icon">📁</div>
+                <div class="empty-text">还没有项目</div>
+                <div class="empty-hint">点击右下角按钮创建第一个项目</div>
+            </div>
+        </div>
+
+        <!-- FAB 按钮 -->
+        <button id="fab-new-project" class="fab" title="新建项目">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- 右键菜单（长按项目卡片） -->
+    <div id="context-menu" class="context-menu hidden">
+        <div class="menu-item" data-action="open">📂 打开项目</div>
+        <div class="menu-item" data-action="rename">✏️ 重命名</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" data-action="delete" class="danger">🗑️ 删除项目</div>
+    </div>
+
+    <!-- 对话框 -->
+    <div id="dialog-overlay" class="dialog-overlay hidden">
+        <div class="dialog">
+            <div class="dialog-header" id="dialog-title">提示</div>
+            <div class="dialog-body">
+                <input type="text" id="dialog-input" class="dialog-input" placeholder="请输入项目名称">
+            </div>
+            <div class="dialog-footer">
+                <button id="dialog-cancel" class="btn-secondary">取消</button>
+                <button id="dialog-confirm" class="btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="js/bridge.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dialog.js"></script>
+    <script src="js/projectList.js"></script>
+</body>
+</html>
