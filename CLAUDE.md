@@ -1,17 +1,71 @@
-# 任务进度（静态站点）
+# WebIDE 项目说明
 
-- [x] 扫描仓库结构与技术栈（纯静态，无 SSG）
-- [x] 抽离样式与脚本，建立基础目录结构（assets/）
-- [x] 添加站点基础文件：404.html、robots.txt、sitemap.xml、CNAME
-- [x] 优化 `<head>`：meta/description/canonical/theme-color
-- [x] 更新 README 说明
-- [x] UI 细化与主题风格（导航、配色、深色模式、图标）
-- [ ] SEO 进一步优化（Open Graph、Twitter Card、结构化数据）
-- [x] SEO 进一步优化（Open Graph、Twitter Card、结构化数据：WebSite/WebPage/BreadcrumbList、robots/canonical/hreflang、Person sameAs）
-- [x] 性能优化（资源体积、缓存策略：基础 PWA/缓存）
-- [ ] 可访问性检查（对比度、语义标签、键盘可达）
-- [ ] 内容结构扩展（多页面/文章）
+## 项目概述
+本项目是一个基于 ACE Editor 的 Web IDE，托管在 GitHub Pages。
 
-## 说明
-本次优先完成“框架”搭建（目录/配置/基础文件），UI 暂保留极简风格，后续可按需补充。
-已新增多页面（关于/联系）、深色模式切换、基础 PWA（manifest + sw）。
+## 技术架构
+- **前端框架**：原生 HTML/CSS/JavaScript（零依赖）
+- **编辑器核心**：ACE Editor
+- **数据存储**：浏览器 LocalStorage
+- **部署方式**：GitHub Actions → GitHub Pages
+
+## 主要模块
+
+### 1. 项目管理 (index.html + projectList.js)
+- 项目列表展示（网格布局）
+- 新建/重命名/删除项目
+- 下拉刷新
+- 长按右键菜单
+
+### 2. 代码编辑器 (editor.html + editor.js)
+- ACE Editor 集成
+- 多文件支持
+- 实时保存
+- 语法高亮
+- 状态栏显示（文件名、行列号、语言）
+
+### 3. 文件树 (fileTree.js)
+- 树形展示项目文件结构
+- 新建/重命名/删除文件/文件夹
+- 可折叠侧边栏
+- 右键菜单操作
+
+### 4. 通用组件
+- **dialog.js**：通用对话框（输入、确认）
+- **utils.js**：工具函数（存储读写、路径处理等）
+- **bridge.js**：Android WebView 桥接接口
+
+## 开发注意事项
+
+### 路径规范
+- 所有资源使用相对路径（css/、js/、lib/）
+- 确保在 /webide/ 子目录下能独立运行
+
+### 存储结构
+```js
+// LocalStorage 键名规范
+projects          // 项目列表数组 [{ name, createdAt }]
+project_{name}    // 单个项目的文件树 JSON
+```
+
+### Android 桥接
+```js
+// 调用 Android 原生功能（如果在 WebView 中）
+window.AndroidBridge?.showToast(message)
+window.AndroidBridge?.saveFile(path, content)
+```
+
+## 未来优化方向
+- [ ] 添加代码搜索功能
+- [ ] 支持 Git 集成
+- [ ] 多标签编辑
+- [ ] 代码格式化
+- [ ] 主题切换
+- [ ] 快捷键自定义
+
+## 维护说明
+修改代码时务必保持：
+1. 代码风格一致（缩进、命名）
+2. 移动端体验优先
+3. 避免引入第三方依赖
+4. 确保离线可用

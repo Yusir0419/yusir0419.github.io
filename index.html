@@ -1,87 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ting1127的个人网站</title>
-  <meta name="description" content="Ting1127 的个人网站，基于 GitHub Pages，记录与分享。" />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="canonical" href="https://www.ting1127.top/" />
-  <meta name="robots" content="index,follow" />
-  <meta name="author" content="Ting1127" />
-  <meta name="application-name" content="Ting1127.top" />
-  <link rel="alternate" hreflang="zh-CN" href="https://www.ting1127.top/" />
-  <!-- Open Graph / Twitter 预览 -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Ting1127 的个人网站" />
-  <meta property="og:description" content="记录与分享，基于 GitHub Pages 的静态网站。" />
-  <meta property="og:url" content="https://www.ting1127.top/" />
-  <meta property="og:site_name" content="Ting1127.top" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta property="og:image" content="https://www.ting1127.top/assets/img/favicon.svg" />
-  <meta property="og:image:alt" content="Ting1127 站点图标" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Ting1127 的个人网站" />
-  <meta name="twitter:description" content="记录与分享，基于 GitHub Pages 的静态网站。" />
-  <meta name="twitter:image" content="https://www.ting1127.top/assets/img/favicon.svg" />
-  <meta name="twitter:image:alt" content="Ting1127 站点图标" />
-  <!-- PWA & 图标 -->
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/site.webmanifest" crossorigin="use-credentials" />
-  <!-- 基础样式：从原内联样式提取到独立文件，便于维护与复用 -->
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <!-- 预留脚本入口：后续按需添加交互逻辑 -->
-  <script src="assets/js/main.js" defer></script>
-  <!-- 站点可选统计配置：如需启用，设置以下 meta（provider: plausible|ga4）
-       <meta name="analytics:provider" content="plausible" />
-       <meta name="analytics:domain" content="www.ting1127.top" />
-       或：
-       <meta name="analytics:provider" content="ga4" />
-       <meta name="analytics:ga4" content="G-XXXXXXXXXX" />
-  -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ting1127",
-    "url": "https://www.ting1127.top/",
-    "sameAs": [
-      "https://github.com/yusir0419"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Ting1127.top",
-    "url": "https://www.ting1127.top/"
-  }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=/webide/">
+  <title>WebIDE - 重定向中...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #1e1e1e;
+      color: #e8e8e8;
+    }
+    .loading {
+      text-align: center;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: #007acc;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header class="header">
-      <h1>欢迎访问 Ting1127.top</h1>
-      <p>我的个人网站 | 基于 GitHub Pages</p>
-      <nav class="nav" aria-label="主导航">
-        <a href="/" data-nav="home">首页</a>
-        <a href="/about.html" data-nav="about">关于</a>
-        <a href="/contact.html" data-nav="contact">联系</a>
-        <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换深浅色">🌓</button>
-      </nav>
-    </header>
-
-    <main class="content">
-      <h2>网站建设中...</h2>
-      <p>这是一个使用 GitHub Pages 托管的网站，域名已成功绑定！</p>
-      <p>🎉 恭喜！你的自定义域名 <strong>www.ting1127.top</strong> 已配置成功！</p>
-    </main>
-
-    <footer class="footer">
-      <!-- 简单页脚：可扩展放置版权、导航或社交链接 -->
-      <p>© 2025 Ting1127</p>
-    </footer>
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>正在跳转到 WebIDE...</p>
+    <p><a href="/webide/" style="color: #007acc;">如果未自动跳转，请点击这里</a></p>
   </div>
+  <script>
+    // 立即跳转（meta refresh 备用）
+    window.location.href = '/webide/';
+  </script>
 </body>
 </html>
