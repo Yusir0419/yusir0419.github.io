@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2196F3">
+    <title>插件商店 - WebIDE</title>
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="store.css">
+</head>
+<body>
+    <!-- 主容器 -->
+    <div id="app" class="store-page">
+        <!-- 顶部工具栏 -->
+        <div class="toolbar">
+            <button id="btn-back" class="btn-icon" title="返回">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                </svg>
+            </button>
+            <div class="toolbar-title">插件商店</div>
+            <div class="toolbar-actions">
+                <button id="btn-search" class="btn-icon" title="搜索">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                        <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 搜索栏（隐藏状态） -->
+        <div id="search-bar" class="search-bar hidden">
+            <input type="text" id="search-input" class="search-input" placeholder="搜索插件...">
+            <button id="btn-clear-search" class="btn-clear">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- 分类标签 -->
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">全部</button>
+            <button class="category-tab" data-category="theme">主题</button>
+            <button class="category-tab" data-category="language">语言</button>
+            <button class="category-tab" data-category="tools">工具</button>
+            <button class="category-tab" data-category="snippets">代码片段</button>
+        </div>
+
+        <!-- 插件列表容器 -->
+        <div class="plugin-list-container" id="plugin-list-container">
+            <!-- 插件列表 -->
+            <div id="plugin-list" class="plugin-list">
+                <!-- 插件卡片由 JS 动态生成 -->
+            </div>
+
+            <!-- 加载状态 -->
+            <div id="loading-state" class="loading-state hidden">
+                <div class="spinner"></div>
+                <div class="loading-text">加载中...</div>
+            </div>
+
+            <!-- 空状态 -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-icon">🔌</div>
+                <div class="empty-text">未找到插件</div>
+                <div class="empty-hint">试试其他搜索条件</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 插件详情对话框 -->
+    <div id="plugin-detail-overlay" class="plugin-detail-overlay hidden">
+        <div class="plugin-detail">
+            <div class="plugin-detail-header">
+                <button id="btn-close-detail" class="btn-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="plugin-detail-body" id="plugin-detail-body">
+                <!-- 详情内容由 JS 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="../js/bridge.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="store.js"></script>
+</body>
+</html>
