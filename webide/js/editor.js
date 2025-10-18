@@ -122,6 +122,14 @@ class EditorManager {
             sidebar.classList.toggle('collapsed');
         });
 
+        // 文件树展开按钮
+        const expandBtn = document.getElementById('btn-expand-tree');
+        if (expandBtn) {
+            expandBtn.addEventListener('click', () => {
+                sidebar.classList.remove('collapsed');
+            });
+        }
+
         // 右键菜单事件
         this.bindContextMenuEvents();
 
