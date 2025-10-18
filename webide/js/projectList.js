@@ -156,43 +156,55 @@ class ProjectList {
 
             // 读取项目列表
             console.log('读取项目列表...');
-            const files = await Bridge.FileSystem.listFiles(this.projectsRoot);
-            console.log('读取到文件:', files);
+            const filesStr = await Bridge.FileSystem.listFiles(this.projectsRoot);
+            console.log('读取到文件:', filesStr);
 
-            // 过滤出文件夹
-            const projectFolders = files.filter(f => f.isDirectory);
-            console.log('项目文件夹:', projectFolders);
+            // 解析文件名列表
+            const fileNames = filesStr.split('\n').filter(name => name && name !== '.' && name !== '..');
+            console.log('文件名列表:', fileNames);
+
+            // 检测每个文件是否为目录
+            const folders = [];
+            for (const name of fileNames) {
+                const fullPath = `${this.projectsRoot}/${name}`;
+                try {
+                    // 尝试列出子文件，如果成功则是目录
+                    await Bridge.FileSystem.listFiles(fullPath);
+                    folders.push({
+                        name: name,
+                        path: fullPath
+                    });
+                } catch (e) {
+                    // 不是目录，忽略
+                }
+            }
+            console.log('项目文件夹:', folders);
 
             // 读取每个项目的配置
             this.projects = [];
-            for (const folder of projectFolders) {
+            for (const folder of folders) {
                 const configPath = getProjectConfigPath(folder.name);
                 console.log('检查配置文件:', configPath);
 
-                const exists = await Bridge.FileSystem.exists(configPath);
+                try {
+                    const configContent = await Bridge.FileSystem.readFile(configPath);
+                    console.log('配置内容:', configContent);
 
-                if (exists) {
-                    try {
-                        const configContent = await Bridge.FileSystem.readFile(configPath);
-                        console.log('配置内容:', configContent);
+                    const config = JSON.parse(configContent);
 
-                        const config = JSON.parse(configContent);
-
-                        this.projects.push({
-                            name: folder.name,
-                            path: folder.path,
-                            appName: config.app_name || folder.name,
-                            packageName: config.package_name || 'com.example.app',
-                            lastModified: folder.lastModified
-                        });
-                    } catch (e) {
-                        console.error(`读取项目配置失败: ${folder.name}`, e);
-                    }
+                    this.projects.push({
+                        name: folder.name,
+                        path: folder.path,
+                        appName: config.app_name || folder.name,
+                        packageName: config.package_name || 'com.example.app'
+                    });
+                } catch (e) {
+                    console.error(`读取项目配置失败: ${folder.name}`, e);
                 }
             }
 
-            // 按修改时间排序
-            this.projects.sort((a, b) => b.lastModified - a.lastModified);
+            // 按名称排序
+            this.projects.sort((a, b) => a.name.localeCompare(b.name));
 
             console.log('最终项目列表:', this.projects);
 
