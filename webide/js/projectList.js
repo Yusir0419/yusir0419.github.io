@@ -255,20 +255,26 @@ class ProjectList {
             </div>
         `;
 
-        // 点击打开项目
-        card.addEventListener('click', () => this.openProject(project));
-
-        // 长按显示菜单
+        // 长按显示菜单，短按打开项目
         let pressTimer = null;
+        let isLongPress = false;
+
         card.addEventListener('touchstart', (e) => {
+            isLongPress = false;
             pressTimer = setTimeout(() => {
+                isLongPress = true;
                 Bridge.System.vibrate(30);
                 this.showContextMenu(e, project);
             }, 500);
         });
 
-        card.addEventListener('touchend', () => {
+        card.addEventListener('touchend', (e) => {
             clearTimeout(pressTimer);
+
+            // 如果不是长按，则打开项目
+            if (!isLongPress) {
+                this.openProject(project);
+            }
         });
 
         card.addEventListener('touchmove', () => {
