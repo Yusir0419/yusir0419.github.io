@@ -206,7 +206,7 @@ class EditorManager {
 
                 switch (action) {
                     case 'plugin-store':
-                        window.location.href = '/store/index.html';
+                        window.location.href = 'store.html';
                         break;
                     case 'settings':
                         Bridge.System.showToast('设置功能开发中');
