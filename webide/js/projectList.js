@@ -160,34 +160,39 @@ class ProjectList {
             console.log('读取到文件:', files);
 
             // 过滤出文件夹
-            const folders = files.filter(file => file.isDirectory);
-            console.log('项目文件夹:', folders);
+            const projectFolders = files.filter(f => f.isDirectory);
+            console.log('项目文件夹:', projectFolders);
 
             // 读取每个项目的配置
             this.projects = [];
-            for (const folder of folders) {
+            for (const folder of projectFolders) {
                 const configPath = getProjectConfigPath(folder.name);
                 console.log('检查配置文件:', configPath);
 
-                try {
-                    const configContent = await Bridge.FileSystem.readFile(configPath);
-                    console.log('配置内容:', configContent);
+                const exists = await Bridge.FileSystem.exists(configPath);
 
-                    const config = JSON.parse(configContent);
+                if (exists) {
+                    try {
+                        const configContent = await Bridge.FileSystem.readFile(configPath);
+                        console.log('配置内容:', configContent);
 
-                    this.projects.push({
-                        name: folder.name,
-                        path: folder.path,
-                        appName: config.app_name || folder.name,
-                        packageName: config.package_name || 'com.example.app'
-                    });
-                } catch (e) {
-                    console.error(`读取项目配置失败: ${folder.name}`, e);
+                        const config = JSON.parse(configContent);
+
+                        this.projects.push({
+                            name: folder.name,
+                            path: folder.path,
+                            appName: config.app_name || folder.name,
+                            packageName: config.package_name || 'com.example.app',
+                            lastModified: folder.lastModified
+                        });
+                    } catch (e) {
+                        console.error(`读取项目配置失败: ${folder.name}`, e);
+                    }
                 }
             }
 
-            // 按名称排序
-            this.projects.sort((a, b) => a.name.localeCompare(b.name));
+            // 按修改时间排序
+            this.projects.sort((a, b) => b.lastModified - a.lastModified);
 
             console.log('最终项目列表:', this.projects);
 
@@ -238,26 +243,20 @@ class ProjectList {
             </div>
         `;
 
-        // 长按显示菜单，短按打开项目
-        let pressTimer = null;
-        let isLongPress = false;
+        // 点击打开项目
+        card.addEventListener('click', () => this.openProject(project));
 
+        // 长按显示菜单
+        let pressTimer = null;
         card.addEventListener('touchstart', (e) => {
-            isLongPress = false;
             pressTimer = setTimeout(() => {
-                isLongPress = true;
                 Bridge.System.vibrate(30);
                 this.showContextMenu(e, project);
             }, 500);
         });
 
-        card.addEventListener('touchend', (e) => {
+        card.addEventListener('touchend', () => {
             clearTimeout(pressTimer);
-
-            // 如果不是长按，则打开项目
-            if (!isLongPress) {
-                this.openProject(project);
-            }
         });
 
         card.addEventListener('touchmove', () => {
