@@ -1,19 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>页面未找到 - 404</title>
-  <meta name="robots" content="noindex,follow" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面未找到</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <div class="wrapper">
-    <main class="content" style="text-align:center">
-      <h1>404</h1>
-      <p>抱歉，你访问的页面不存在或已被移动。</p>
-      <p><a href="/">返回首页</a></p>
-    </main>
-  </div>
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>抱歉，页面未找到</h1>
+        <p>您访问的页面不存在或已被移动</p>
+        <a href="/" class="btn">返回首页</a>
+    </div>
 </body>
 </html>
