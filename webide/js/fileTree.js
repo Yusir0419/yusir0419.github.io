@@ -40,27 +40,12 @@ class FileTree {
     async loadDirectory(path) {
         const files = await Bridge.FileSystem.listFiles(path);
 
-        // 解析文件列表
-        const items = files.split('\n')
-            .filter(name => name && name !== '.' && name !== '..')
-            .map(name => {
-                const fullPath = `${path}/${name}`;
-                return {
-                    name: name,
-                    path: fullPath,
-                    isDirectory: false // 默认为文件，后续检测
-                };
-            });
-
-        // 检测是否为目录（通过尝试列出子文件）
-        for (const item of items) {
-            try {
-                await Bridge.FileSystem.listFiles(item.path);
-                item.isDirectory = true;
-            } catch (e) {
-                item.isDirectory = false;
-            }
-        }
+        // 文件已经包含所有信息，直接使用
+        const items = files.map(file => ({
+            name: file.name,
+            path: file.path,
+            isDirectory: file.isDirectory
+        }));
 
         // 排序：文件夹在前，文件在后，同类按名称排序
         items.sort((a, b) => {

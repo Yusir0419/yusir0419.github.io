@@ -156,28 +156,11 @@ class ProjectList {
 
             // 读取项目列表
             console.log('读取项目列表...');
-            const filesStr = await Bridge.FileSystem.listFiles(this.projectsRoot);
-            console.log('读取到文件:', filesStr);
+            const files = await Bridge.FileSystem.listFiles(this.projectsRoot);
+            console.log('读取到文件:', files);
 
-            // 解析文件名列表
-            const fileNames = filesStr.split('\n').filter(name => name && name !== '.' && name !== '..');
-            console.log('文件名列表:', fileNames);
-
-            // 检测每个文件是否为目录
-            const folders = [];
-            for (const name of fileNames) {
-                const fullPath = `${this.projectsRoot}/${name}`;
-                try {
-                    // 尝试列出子文件，如果成功则是目录
-                    await Bridge.FileSystem.listFiles(fullPath);
-                    folders.push({
-                        name: name,
-                        path: fullPath
-                    });
-                } catch (e) {
-                    // 不是目录，忽略
-                }
-            }
+            // 过滤出文件夹
+            const folders = files.filter(file => file.isDirectory);
             console.log('项目文件夹:', folders);
 
             // 读取每个项目的配置
