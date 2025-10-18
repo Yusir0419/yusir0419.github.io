@@ -92,10 +92,25 @@ class EditorManager {
      * 绑定事件
      */
     bindEvents() {
+        const sidebar = document.getElementById('file-tree-sidebar');
+        const backdrop = document.getElementById('drawer-backdrop');
+
         // 菜单按钮（切换文件树）
         document.getElementById('btn-toggle-menu').addEventListener('click', () => {
-            const sidebar = document.getElementById('file-tree-sidebar');
-            sidebar.classList.toggle('collapsed');
+            this.toggleDrawer();
+        });
+
+        // 侧边栏收起按钮
+        const toggleBtn = document.getElementById('btn-toggle-tree');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                this.closeDrawer();
+            });
+        }
+
+        // 点击遮罩层关闭抽屉
+        backdrop.addEventListener('click', () => {
+            this.closeDrawer();
         });
 
         // 保存按钮
@@ -108,22 +123,6 @@ class EditorManager {
             Bridge.System.showToast('功能开发中');
         });
 
-        // 文件树切换按钮
-        const toggleBtn = document.getElementById('btn-toggle-tree');
-        const sidebar = document.getElementById('file-tree-sidebar');
-
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-        });
-
-        // 文件树展开按钮
-        const expandBtn = document.getElementById('btn-expand-tree');
-        if (expandBtn) {
-            expandBtn.addEventListener('click', () => {
-                sidebar.classList.remove('collapsed');
-            });
-        }
-
         // 右键菜单事件
         this.bindContextMenuEvents();
 
@@ -132,6 +131,42 @@ class EditorManager {
             const contextMenu = document.getElementById('context-menu');
             contextMenu.classList.add('hidden');
         });
+    }
+
+    /**
+     * 切换抽屉
+     */
+    toggleDrawer() {
+        const sidebar = document.getElementById('file-tree-sidebar');
+        const backdrop = document.getElementById('drawer-backdrop');
+
+        if (sidebar.classList.contains('collapsed')) {
+            this.openDrawer();
+        } else {
+            this.closeDrawer();
+        }
+    }
+
+    /**
+     * 打开抽屉
+     */
+    openDrawer() {
+        const sidebar = document.getElementById('file-tree-sidebar');
+        const backdrop = document.getElementById('drawer-backdrop');
+
+        sidebar.classList.remove('collapsed');
+        backdrop.classList.add('visible');
+    }
+
+    /**
+     * 关闭抽屉
+     */
+    closeDrawer() {
+        const sidebar = document.getElementById('file-tree-sidebar');
+        const backdrop = document.getElementById('drawer-backdrop');
+
+        sidebar.classList.add('collapsed');
+        backdrop.classList.remove('visible');
     }
 
     /**

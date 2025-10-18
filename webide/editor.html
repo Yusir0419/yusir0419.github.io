@@ -35,6 +35,9 @@
 
         <!-- 主体区域 -->
         <div class="editor-container">
+            <!-- 侧边栏遮罩层 -->
+            <div id="drawer-backdrop" class="drawer-backdrop"></div>
+
             <!-- 文件树侧边栏 -->
             <div id="file-tree-sidebar" class="file-tree-sidebar collapsed">
                 <div class="sidebar-header">
@@ -69,13 +72,6 @@
             <div class="statusbar-item" id="status-position">Ln 1, Col 1</div>
             <div class="statusbar-item" id="status-language">纯文本</div>
         </div>
-
-        <!-- 浮动展开按钮 -->
-        <button id="btn-expand-tree" class="btn-expand-tree" title="展开文件树">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                <path d="M400-240 160-480l240-240 56 56-184 184 184 184-56 56Z"/>
-            </svg>
-        </button>
     </div>
 
     <!-- 右键菜单 -->
