@@ -59,6 +59,20 @@ function isValidProjectName(name) {
 }
 
 /**
+ * 验证文件名
+ * @param {string} name 文件名
+ * @returns {boolean} 是否有效
+ */
+function isValidFileName(name) {
+    if (!name || name.trim().length === 0) {
+        return false;
+    }
+    // 不能包含特殊字符
+    const invalidChars = /[<>:"/\\|?*]/;
+    return !invalidChars.test(name);
+}
+
+/**
  * 验证包名
  * @param {string} packageName 包名
  * @returns {boolean} 是否有效

@@ -93,11 +93,12 @@ class EditorManager {
      */
     bindEvents() {
         // 返回按钮
-        document.getElementById('btn-back').addEventListener('click', () => {
+        document.getElementById('btn-back').addEventListener('click', async () => {
             if (this.isDirty) {
-                showConfirm('确定要返回吗？未保存的修改将丢失。', () => {
+                const confirmed = await Dialog.confirm('确定要返回吗？', '未保存的修改将丢失');
+                if (confirmed) {
                     window.location.href = 'index.html';
-                });
+                }
             } else {
                 window.location.href = 'index.html';
             }
@@ -173,7 +174,7 @@ class EditorManager {
     async handleNewFile(targetPath, isDirectory) {
         const parentPath = isDirectory ? targetPath : targetPath.substring(0, targetPath.lastIndexOf('/'));
 
-        const fileName = await showInput('新建文件', '请输入文件名');
+        const fileName = await Dialog.prompt('新建文件', '请输入文件名');
         if (!fileName) return;
 
         if (!isValidFileName(fileName)) {
@@ -190,7 +191,7 @@ class EditorManager {
     async handleNewFolder(targetPath, isDirectory) {
         const parentPath = isDirectory ? targetPath : targetPath.substring(0, targetPath.lastIndexOf('/'));
 
-        const folderName = await showInput('新建文件夹', '请输入文件夹名称');
+        const folderName = await Dialog.prompt('新建文件夹', '请输入文件夹名称');
         if (!folderName) return;
 
         if (!isValidFileName(folderName)) {
@@ -207,7 +208,7 @@ class EditorManager {
     async handleRename(targetPath) {
         const oldName = targetPath.substring(targetPath.lastIndexOf('/') + 1);
 
-        const newName = await showInput('重命名', '请输入新名称', oldName);
+        const newName = await Dialog.prompt('重命名', '请输入新名称', oldName);
         if (!newName || newName === oldName) return;
 
         if (!isValidFileName(newName)) {
@@ -222,9 +223,10 @@ class EditorManager {
      * 处理删除
      */
     async handleDelete(targetPath) {
-        showConfirm('确定要删除吗？此操作不可恢复。', async () => {
+        const confirmed = await Dialog.confirm('确定要删除吗？', '此操作不可恢复');
+        if (confirmed) {
             await this.fileTree.delete(targetPath);
-        });
+        }
     }
 
     /**
@@ -234,15 +236,10 @@ class EditorManager {
         try {
             // 如果当前有未保存的文件，提示保存
             if (this.isDirty && this.currentFile !== filePath) {
-                const shouldSave = await new Promise(resolve => {
-                    showConfirm('当前文件未保存，是否保存？', () => {
-                        this.saveFile();
-                        resolve(true);
-                    }, () => {
-                        resolve(true);
-                    });
-                });
-                if (!shouldSave) return;
+                const shouldSave = await Dialog.confirm('当前文件未保存', '是否保存当前文件？');
+                if (shouldSave) {
+                    await this.saveFile();
+                }
             }
 
             // 读取文件内容
