@@ -69,6 +69,7 @@ class EditorManager {
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
             enableSnippets: true,
+            enableEmmet: true,  // 启用 Emmet
             tabSize: 4,
             useSoftTabs: true,
             wrap: true
