@@ -119,6 +119,11 @@ class EditorManager {
             this.saveFile();
         });
 
+        // Emmet 展开按钮
+        document.getElementById('btn-emmet').addEventListener('click', () => {
+            this.expandEmmet();
+        });
+
         // 更多按钮（显示更多菜单）
         document.getElementById('btn-more').addEventListener('click', (e) => {
             e.stopPropagation();
@@ -373,6 +378,20 @@ class EditorManager {
         } catch (error) {
             console.error('保存文件失败:', error);
             Bridge.System.showToast('保存失败');
+        }
+    }
+
+    /**
+     * 展开 Emmet 缩写
+     */
+    expandEmmet() {
+        try {
+            // 执行 Emmet 展开命令
+            this.editor.execCommand('expandAbbreviation');
+            Bridge.System.showToast('Emmet 已展开');
+        } catch (error) {
+            console.error('Emmet 展开失败:', error);
+            Bridge.System.showToast('Emmet 展开失败');
         }
     }
 
